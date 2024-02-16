@@ -1,0 +1,121 @@
+package com.practice;
+import java.util.Scanner;
+
+public class Finddays {
+	int isLeapYear(int year) {
+        if(year % 4 == 0 && year % 100 != 0 || year % 400 == 0){
+        	return 1;
+        }else
+        	return 0;
+    }
+	
+	int checkdays(int month,int year) {
+		if(month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12 ) {
+			return 31;
+		}else if(month==2) {
+			int n=isLeapYear(year);
+			if(n==1) {
+				return 29;
+			}else {
+				return 28;
+			}
+		}else  {
+			return 30;
+		}
+	}
+
+//*******************************************Case 1) When Years are same***************************************************
+    
+	int count(int d1,int m1,int y1,int d2,int m2,int y2) {
+		if(y1==y2) {
+	    	if(m1==m2) {                           // When months are same
+	    		if(d1==d2) {
+	    			return 0;
+	    		}else if(d1<d2){
+	    			int sum=0;
+	    			return sum=d2-d1;
+	    		}else {
+	    			int sum=0;
+	    			return sum=d1-d2;
+	    		}
+	    	}
+	    	else if(m2>m1) {                      // When are months are different       ( Month 1< Month 2) 
+	    		int sum=0;
+	    		for(int i=m1;i<m2;i++) {
+	    			sum=sum+checkdays(i, y1);
+	    			System.out.println("n= "+sum);
+	    		}
+	    		if(d1==d2) {                      // When months are different and days are same
+	    			return sum;
+	    		}else if(d1>d2) {                 // When months are different and d1>d2
+	    			sum=sum-(d1-d2);
+	    			return sum;
+	    		}else {                           // When months are different and d2>d1 
+	    			sum=sum+(d2-d1);
+	    			return sum;
+	    		}
+	    	}else if(m1>m2) {                    // When are months are different       ( Month 2< Month 1)
+	    		int sum=0;
+	    		for(int i=m2;i<m1;i++) {
+	    			sum=sum+checkdays(i, y1);
+	    			System.out.println("total days"+sum);
+	    		}
+	    		if(d1==d2) {                      // When are months are different and days are same
+	    			return sum;
+	    		}else if(d2>d1) {                 // When are months are different and days are different
+	    			sum=sum-(d2-d1);
+	    			return sum;
+	    		}else {
+	    			sum=sum+(d1-d2);
+	    			return sum;
+	    		}
+	    	}
+	    }
+		return -1;
+	}
+	
+	public static void main(String[] args) {
+		Scanner sc= new Scanner(System.in);
+		System.out.println("Enter day1");
+		int d1=sc.nextInt();
+		System.out.println("Enter month1");
+		int m1=sc.nextInt();
+		System.out.println("Enter year1");
+		int y1=sc.nextInt();
+		System.out.println("Enter day2");
+		int d2=sc.nextInt();
+		System.out.println("Enter month2");
+		int m2=sc.nextInt();
+		System.out.println("Enter year2");
+		int y2=sc.nextInt();
+		Finddays f=new Finddays();
+		f.isLeapYear(y1);
+		f.isLeapYear(y2);
+		f.checkdays(m1, y1);
+		f.checkdays(m2, y2);
+		
+//***********************************************Print all leap year******************************************************
+//		System.out.println("Given years are leap year");
+//		for (int year = y1; year <= y2; year++) {
+//            if (f.isLeapYear(year)==1) {
+//                System.out.println(year);
+//            }
+//        }
+
+//************************************Print all months number of days in it************************************************
+//		System.out.println("Number of days for each month between " + m1 + "-" + y1 + " and " + m2 + "-" + y2 + ":");
+//        for (int year = y1; year <= y2; year++) {
+//            for (int month = 1; month <= 12; month++) {
+//                int days = f.checkdays(month, year);
+//                System.out.println(month + "-" + year + ": " + days + " days");  
+//            }
+//        }
+        
+//*****************************************Case 1)PRINT When Dates are same*************************************************
+        System.out.println("Number of days are=" +f.count(d1, m1, y1, d2, m2, y2));
+        
+    }		
+	}
+
+
+
